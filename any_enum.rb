@@ -1,4 +1,7 @@
 # Reimplement #any?
+
+require_relative 'enum_test_helper'
+
 DESIRED_LENGTH = 4
 
 ANIMALS_WITH_FOUR = ['cat', 'dog', 'lamb', 'horse']
@@ -31,12 +34,6 @@ def test_without_four
     show_results('test_without_four', expected_result, actual_result)
 end
 
-def show_results(test_name, expected_result, actual_result)
-    if expected_result ==  actual_result
-        puts PASSED_MESSAGE
-    else
-        puts "FAILURE #{test_name}: Expected #{expected_result}, got #{actual_result}."
-    end
-end
+
 
 test_any
