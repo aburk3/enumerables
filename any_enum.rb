@@ -1,4 +1,4 @@
-# Reimplement #all?
+# Reimplement #any?
 DESIRED_LENGTH = 4
 
 ANIMALS_WITH_FOUR = ['cat', 'dog', 'lamb', 'horse']
