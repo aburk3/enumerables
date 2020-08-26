@@ -1,4 +1,5 @@
 # Reimplement #any?
+require 'pry'
 
 require_relative 'enum_test_helper'
 
@@ -9,31 +10,24 @@ ANIMALS_WITHOUT_FOUR = ['cat', 'dog', 'lambs', 'horse']
 
 PASSED_MESSAGE = "Test passed"
 
-def validate_length(list)
-    list.any? do |element|
+
+def test_any(arr)
+    result = arr.any? do |element|
         element.length == DESIRED_LENGTH
     end
 end
 
-def test_any
-    test_with_four
-    test_without_four
+expected_result = test_any(ANIMALS_WITH_FOUR)
+
+def ANIMALS_WITH_FOUR.any?(*args)
+    each do |val|
+        binding.pry
+        return true if args.size == 1 && args.first == val
+        return true if block_given? && yield(val)
+    end
+    false
 end
 
-def test_with_four
-    actual_result = validate_length(ANIMALS_WITH_FOUR) ?  true : false
-    expected_result = true
+actual_result = test_any(ANIMALS_WITH_FOUR)
 
-    show_results('test_with_four', expected_result, actual_result)
-end
-
-def test_without_four
-    actual_result = validate_length(ANIMALS_WITHOUT_FOUR) ?  true : false
-    expected_result = false
-
-    show_results('test_without_four', expected_result, actual_result)
-end
-
-
-
-test_any
+show_results('test_any', expected_result, actual_result)
