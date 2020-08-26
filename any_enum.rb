@@ -6,10 +6,6 @@ require_relative 'enum_test_helper'
 DESIRED_LENGTH = 4
 
 ANIMALS_WITH_FOUR = ['cat', 'dog', 'lamb', 'horse']
-ANIMALS_WITHOUT_FOUR = ['cat', 'dog', 'lambs', 'horse']
-
-PASSED_MESSAGE = "Test passed"
-
 
 def test_any(arr)
     result = arr.any? do |element|
@@ -21,7 +17,6 @@ expected_result = test_any(ANIMALS_WITH_FOUR)
 
 def ANIMALS_WITH_FOUR.any?(*args)
     each do |val|
-        binding.pry
         return true if args.size == 1 && args.first == val
         return true if block_given? && yield(val)
     end

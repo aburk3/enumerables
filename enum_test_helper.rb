@@ -1,3 +1,5 @@
+PASSED_MESSAGE = "Test passed"
+
 def show_results(test_name, expected_result, actual_result)
     if expected_result ==  actual_result
         puts PASSED_MESSAGE
