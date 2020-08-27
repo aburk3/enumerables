@@ -8,7 +8,7 @@ DESIRED_LENGTH = 4
 animals = ['cat', 'dog', 'lamb', 'hors']
 
 def test_any(arr)
-    result = arr.any? do |element|
+    arr.any? do |element|
         element.length == DESIRED_LENGTH
     end
 end
