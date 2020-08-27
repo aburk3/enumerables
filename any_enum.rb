@@ -5,7 +5,7 @@ require_relative 'enum_test_helper'
 
 DESIRED_LENGTH = 4
 
-ANIMALS_WITH_FOUR = ['cat', 'dog', 'lamb', 'horse']
+animals = ['cat', 'dog', 'lamb', 'hors']
 
 def test_any(arr)
     result = arr.any? do |element|
@@ -13,9 +13,9 @@ def test_any(arr)
     end
 end
 
-expected_result = test_any(ANIMALS_WITH_FOUR)
+expected_result = test_any(animals)
 
-def ANIMALS_WITH_FOUR.any?(*args)
+def animals.any?(*args)
     each do |val|
         return true if args.size == 1 && args.first == val
         return true if block_given? && yield(val)
@@ -23,6 +23,6 @@ def ANIMALS_WITH_FOUR.any?(*args)
     false
 end
 
-actual_result = test_any(ANIMALS_WITH_FOUR)
+actual_result = test_any(animals)
 
 show_results('test_any', expected_result, actual_result)

@@ -1,29 +1,32 @@
 # Reimplement #all?
+require 'pry'
+
+require_relative 'enum_test_helper'
+
 MAX_LENGTH = 4
 
-ANIMALS = ['cat', 'dog', 'lamb', 'horse']
+animals = ['cat', 'dog', 'lamb', 'horse']
 
-# TODO: Needs to handle a block and not just
-# a 'list'
-def validate_length(list)
-    result = false
-    list.each do |element|
-        if element.length <= MAX_LENGTH
+def test_all(arr)
+    arr.all? do |element|
+        element.length <= MAX_LENGTH
+    end
+end
+
+expected_result = test_all(animals)
+
+def animals.all?(*args)
+    each do |val|
+        return true if args.size == 1 && args.first == val
+        if block_given? && yield(val)
             result = true
-            next
         else
-            result = false
-            break
+            return false
         end
     end
     result
 end
 
-def test_all
-    passed_message = "Test passed."
-    failed_message = "Test failed, horse has 5 chars."
-    message = validate_length(ANIMALS) ?  passed_message : failed_message
-    puts message
-end
+actual_result = test_all(animals)
 
-test_all
+show_results('test_any', expected_result, actual_result)
