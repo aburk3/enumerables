@@ -15,8 +15,6 @@ expected_result = test_chain(array_to_chain)
 def SPREAD.chain(arr)
     combined = SPREAD.to_a + arr
     combined.each
-    # FAILURE test_chain: 
-    #   Expected #<Enumerator::Chain:0x00007fe7e8963228>, got #<Enumerator:0x00007fe7e8963110>.
 end
 
 actual_result = test_chain(array_to_chain)
