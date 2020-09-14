@@ -5,57 +5,41 @@ require_relative 'enum_test_helper'
 
 DESIRED_LENGTH = 3
 
-animals = ['cat', 'dog', 'lamb', 'horse', 'pig']
+numbers = [1,2,4,9,10,11,12,15,16,19,20,21]
 
 def test_chunk(arr)
-    arr.chunk_while do |element_before, element_after|
-        binding.pry if element_before.nil?
-        binding.pry if element_after.nil?
-        desired_length?(element_before) && desired_length?(element_after)
-    end
+    arr.chunk_while { |i, j| i.to_i + 1 == j }
 end
 
-expected_result = test_chunk(animals)
+expected_result = test_chunk(numbers)
 
-def animals.chunk_while(*args)
+def numbers.chunk_while(*args)
     grouping = []
     @all_chunks = []
-    each_with_index do |val, index|
-        # binding.pry
+    previous = nil
+    each do |val|
         # if the new yield is different than the previous, save/clear the current
         #   grouping to start a new grouping
-        element_after = self[index + 1]
-
-        # If we are on the last element, it automatically
-        #   is in it's own group
-        # binding.pry
-        return add_and_break(val) if index == self.length - 1
-
-        # self[index + 1] ? element_after = self[index + 1] : 
-        show_and_clear(grouping) if grouping[0] != yield(val, self[index + 1]) && grouping.length > 0
-        
-        grouping[0] = yield(val) if grouping.length < 1
-        grouping[1] ||= []
-        grouping[1] << val
+        if previous.nil?
+            previous = val
+            grouping << val
+            next
+        else
+            if !yield(previous, val)
+                show_and_clear(grouping)
+            end
+            grouping << val
+            previous = val
+        end
     end
     show_and_clear(grouping)
     @all_chunks.each
-    # binding.pry
 end
 
 def add_and_break(val)
     @all_chunks << [val]
     @all_chunks.each
 end
-
-def desired_length?(elem)
-    begin
-        elem.length == DESIRED_LENGTH
-    rescue => exception
-        binding.pry        
-    end
-end
-
 
 # Handles adding the current chunk to the rest, and clearing current result
 def show_and_clear(grouping)
@@ -64,5 +48,5 @@ def show_and_clear(grouping)
     grouping.clear
 end
 
-actual_result = test_chunk(animals)
+actual_result = test_chunk(numbers)
 show_results('test_chunk', expected_result, actual_result)
