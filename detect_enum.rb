@@ -16,10 +16,9 @@ end
 expected_result = test_detect(list)
 
 def list.detect(ifnone = nil)
+    # If no block is given, an enumerator is returned instead.
+    return enum_for(:detect) unless block_given?
     each do |val|
-        # If no block is given, an enumerator is returned instead.
-        return self.each if !block_given?
-        puts val if yield(val)
         # Returns the first for which block is not false.
         return val if yield(val)
     end
