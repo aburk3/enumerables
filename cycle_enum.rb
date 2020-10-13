@@ -19,6 +19,7 @@ expected_result = test_cycle(array)
 
 def array.cycle(*args)
     count = 0
+    return enum_for(:cycle) unless block_given?
     while count < args[0] do 
         each do |val|
             # Return enumerator object if no block is given
