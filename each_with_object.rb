@@ -15,6 +15,7 @@ expected_result = test_each_with_object(my_arr)
 
 def my_arr.each_with_object(*args)
   return enum_for(:each_with_object) unless block_given?
+  
   object = args[0]
   self.each do |element|
     yield element, object
