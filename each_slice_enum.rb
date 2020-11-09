@@ -1,48 +1,33 @@
-# Reimplement #each_cons
+# Reimplement #each_slice
 require 'pry'
 
 require_relative 'enum_test_helper'
 
-DESIRED_LENGTH = 4
-
 my_arr = (1..10)
 
-def test_each_cons(arr)
-    arr.each_cons(3) do |e|
+def test_each_slice(arr)
+    arr.each_slice(3) do |e|
       puts "#{e}"
     end
 end
 
-# expected_result = test_each_cons(my_arr)
+expected_result = test_each_slice(my_arr)
 
-def my_arr.each_cons(*args, &block)
-  return enum_for(:each_cons) unless block_given?
-  
+def my_arr.each_slice(*args, &block)
+  return enum_for(:each_slice) unless block_given?
+
   group_limit = args[0]
   group_arr = []
-  current_count = 1
-  
+
   self.each do |element|
-    # binding.pry
-    binding.pry if element == 10
-    if check_for_clear(self, group_arr, group_limit, current_count)
-      yield group_arr
-      group_arr.clear
-
-
-      perform_op(group_arr, block)
-
-
-    elsif current_count == self.count
-      group_arr << element
-      yield
-    else
-      group_arr << element
-    end
-    # binding.pry
-    current_count += 1
+    perform_op(group_arr, &block) if group_arr.length == group_limit
+    add_to_group(group_arr, element)
   end
-  
+  yield group_arr if !group_arr.empty?
+end
+
+def add_to_group(group_arr, element)
+  group_arr << element
 end
 
 def perform_op(group_arr, &block)
@@ -50,13 +35,6 @@ def perform_op(group_arr, &block)
   group_arr.clear
 end
 
-def check_for_clear(original_arr, group_arr, group_limit, current_count)
-  if group_arr.length == group_limit or current_count == original_arr.count
-    return true
-  end
-  false
-end
+actual_result = test_each_slice(my_arr)
 
-actual_result = test_each_cons(my_arr)
-
-# show_results('test_each_cons', expected_result, actual_result)
+show_results('test_each_slice', expected_result, actual_result)
