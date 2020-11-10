@@ -3,7 +3,8 @@ require 'pry'
 require 'prime'
 require_relative 'enum_test_helper'
 
-#* Example: https://www.geeksforgeeks.org/ruby-range-entries-function/
+#* https://ruby-doc.org/core-2.6/Enumerable.html#method-i-entries
+#* https://www.geeksforgeeks.org/ruby-range-entries-function/
 
 range = (0..10)
 
