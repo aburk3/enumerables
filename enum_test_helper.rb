@@ -12,3 +12,7 @@ def show_results(test_name, expected_result, actual_result)
         puts "FAILURE #{test_name}: Expected #{expected_result}, got #{actual_result}."
     end
 end
+
+def raise_exception(expected: nil, received: nil)
+    raise "Expected #{expected} but received #{received.class}" 
+end
