@@ -26,13 +26,11 @@ def my_range.inject(*args)
     if index == 0
       if !args[0].nil?
         accumulator = args[0]
-        index += 1
-        next
       else
         accumulator = element
-        index += 1
-        next
       end
+      index += 1
+      next
     else
       accumulator = yield accumulator, next_element(self.to_a, index)
       index += 1
