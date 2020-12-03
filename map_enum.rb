@@ -3,8 +3,6 @@ require 'pry'
 
 require_relative 'enum_test_helper'
 
-DESIRED_LENGTH = 4
-
 range = (1..4) 
 
 def test_map(range)
