@@ -30,7 +30,7 @@ def my_arr.partition(*args)
     end
   end
 
-  return [true_arr, false_arr]
+  [true_arr, false_arr]
 end
 
 # Test after overwriting partition method
