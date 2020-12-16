@@ -28,6 +28,7 @@ def my_arr.one?(*args)
       # This can be improved to somehow handle any pattern
       is_true_count += 1 if element.is_a?(arg) # E.g. Integer
     end
+    return false if is_true_count > 1
   end
 
   return is_true_count == 1

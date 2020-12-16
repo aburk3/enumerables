@@ -36,11 +36,10 @@ def my_array.max_by(*args)
         each do |element|
             if count < arr_size[0]
                 max_elements << element
-
                 next
             end
             max_elements.each_with_index do |element, index|
-                
+                TODO:
             end
 
             max_elements = element if (yield element) > (yield max_elements)
