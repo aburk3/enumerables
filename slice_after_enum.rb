@@ -5,28 +5,34 @@ require_relative 'enum_test_helper'
 
 #* https://ruby-doc.org/core-2.6/Enumerable.html#method-i-slice_after
 
-my_range = (1..10)
+lines = ["foo\n", "bar\\\n", "baz\n", "\n", "qux\n"]
 
 def test_slice_after(elements)
-  elements.slice_after do |i|
-    i % 3 == 0
-  end
+  result = elements.slice_after(/(?<!\\)\n\z/)
+  result
 end
 
 # Test before overwriting slice_after method
-expected_result = test_slice_after(my_range)
+expected_result = test_slice_after(lines)
 
-def my_range.slice_after(*args)
-  return enum_for(:slice_after) unless block_given?
+def lines.slice_after(pattern)
   my_arr = []
+  grouping = []
   self.each do |element|
-    my_arr << element if yield element
+    if element.match(pattern)
+      grouping << element
+      my_arr << grouping.dup
+      grouping.clear
+    else
+      grouping << element
+    end
   end
-  my_arr
+  my_arr.each
 end
 
+
 # Test after overwriting slice_after method
-actual_result = test_slice_after(my_range)
+actual_result = test_slice_after(lines)
 
 # Comparing results
 show_results('test_slice_after', expected_result, actual_result)
