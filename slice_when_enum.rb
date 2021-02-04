@@ -17,7 +17,6 @@ end
 expected_result = test_slice_when(my_arr)
 
 def my_arr.slice_when(*args)
-  # return enum_for(:slice_when) unless block_given?
   parent_arr = []
   index = 0
   self.each do |element|
