@@ -18,6 +18,8 @@ end
 expected_result = test_take_while(my_arr)
 
 def my_arr.take_while
+  return enum_for(:take_while) unless block_given?
+
   new_arr = []
   self.each do |element|
     new_arr << element if yield element
